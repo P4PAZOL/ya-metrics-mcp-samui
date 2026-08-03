@@ -4,12 +4,14 @@ from typing import Annotated
 from fastmcp import Context
 from pydantic import Field
 
+from ya_metrics_mcp.call_log import log_call
 from ya_metrics_mcp.servers.dependencies import get_metrika_fetcher
 from ya_metrics_mcp.servers.main import mcp
 
 # ─── Account & Basic Analytics ───────────────────────────────────────────────
 
 @mcp.tool(tags={"metrika", "read"})
+@log_call
 async def list_counters(
     ctx: Context,
     search: Annotated[str | None, Field(description="Filter counters by name or site URL")] = None,
@@ -21,6 +23,7 @@ async def list_counters(
 
 
 @mcp.tool(tags={"metrika", "read"})
+@log_call
 async def list_goals(
     ctx: Context,
     counter_id: Annotated[str, Field(description="Yandex Metrika counter ID")],
@@ -31,6 +34,7 @@ async def list_goals(
 
 
 @mcp.tool(tags={"metrika", "read"})
+@log_call
 async def get_traffic_sources_types(
     ctx: Context,
     counter_id: Annotated[str, Field(description="Counter ID")],
@@ -41,6 +45,7 @@ async def get_traffic_sources_types(
 
 
 @mcp.tool(tags={"metrika", "read"})
+@log_call
 async def get_goals_conversion(
     ctx: Context,
     counter_id: Annotated[str, Field(description="Counter ID")],
@@ -52,6 +57,7 @@ async def get_goals_conversion(
 
 
 @mcp.tool(tags={"metrika", "read"})
+@log_call
 async def get_page_performance(
     ctx: Context,
     counter_id: Annotated[str, Field(description="Counter ID")],
@@ -64,6 +70,7 @@ async def get_page_performance(
 
 
 @mcp.tool(tags={"metrika", "read"})
+@log_call
 async def get_regional_data(
     ctx: Context,
     counter_id: Annotated[str, Field(description="Counter ID")],
@@ -75,6 +82,7 @@ async def get_regional_data(
 
 
 @mcp.tool(tags={"metrika", "read"})
+@log_call
 async def get_device_analysis(
     ctx: Context,
     counter_id: Annotated[str, Field(description="Counter ID")],
